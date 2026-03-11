@@ -121,8 +121,29 @@ if df is not None:
         
         # Boxplot - Pergunta A
         st.subheader("Variabilidade do IP_D por Obra")
-        fig_box = px.box(df_f, x="nome_obra", y="ip_d", color="nome_obra", points="all",
-                         title="Distribuição de Produtividade (Menor IP_D = Maior Eficiência)")
+
+        # Criamos o gráfico com uma altura maior (height)
+        fig_box = px.box(
+            df_f, 
+            x="nome_obra", 
+            y="ip_d", 
+            color="nome_obra", 
+            points="outliers", # Mudamos para 'outliers' para a caixa ganhar espaço lateral
+            title="Distribuição de Produtividade (Menor IP_D = Maior Eficiência)",
+            height=500 # Aumenta a altura para as caixas "esticarem"
+        )
+
+        # AJUSTES DE LARGURA E ESCALA
+        fig_box.update_layout(
+            boxgap=0.2,      # Diminui o espaço entre as caixas (elas ficam mais largas)
+            boxgroupgap=0.1, # Diminui o espaço entre os grupos
+            yaxis=dict(
+                # Ajusta o zoom para focar onde está a maioria dos dados (0 a 0.5 por exemplo)
+                range=[0, df_f['ip_d'].quantile(0.95) * 1.2] 
+            ),
+            margin=dict(l=50, r=50, t=80, b=50)
+        )
+
         st.plotly_chart(fig_box, width='stretch')
 
         # Gráfico de Barras - Pergunta B
