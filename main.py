@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-# 1. CONFIGURAÇÃO E LAYOUT
+# CONFIGURAÇÃO E LAYOUT
 st.set_page_config(page_title="CP1 - Dashboard de Produtividade", layout="wide")
 
 def load_data():
