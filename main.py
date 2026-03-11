@@ -55,10 +55,34 @@ if df is not None:
             
             with c1:
                 st.subheader("Tendência Central")
+                
+                # 1. Média e Mediana
                 media = df_f['ip_d'].mean()
                 mediana = df_f['ip_d'].median()
+                
+                # 2. Moda Rigorosa (Número exato que mais repete)
+                moda_series = df_f['ip_d'].mode()
+                moda_rigorosa = moda_series[0] if not moda_series.empty else 0
+                
+                # 3. Moda por Intervalo (Classe Modal)
+                # Criamos 10 faixas de valores e vemos qual tem mais registros
+                if not df_f['ip_d'].empty:
+                    counts, bins = np.histogram(df_f['ip_d'], bins=10)
+                    index_max = np.argmax(counts)
+                    faixa_inicio = bins[index_max]
+                    faixa_fim = bins[index_max + 1]
+                else:
+                    faixa_inicio, faixa_fim = 0, 0
+
+                # Exibição dos Cards
                 st.metric("Média (Hh/Unid)", f"{media:.4f}")
                 st.metric("Mediana (Hh/Unid)", f"{mediana:.4f}")
+                
+                st.metric("Moda Rigorosa", f"{moda_rigorosa:.4f}")
+                st.metric("Moda por Intervalo", f"{faixa_inicio:.4f} - {faixa_fim:.4f}")
+                
+                st.write("**Interpretação das Modas:**")
+                st.write(f"A **Moda Rigorosa** é o valor exato que mais apareceu. Já a **Moda por Intervalo** indica que a maior concentração de produtividade da equipe está entre **{faixa_inicio:.4f}** e **{faixa_fim:.4f}**.")
 
             with c2:
                 st.subheader("Medidas de Dispersão")
