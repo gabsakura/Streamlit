@@ -88,9 +88,12 @@ if df is not None:
                 st.subheader("Medidas de Dispersão")
                 desvio = df_f['ip_d'].std()
                 variancia = df_f['ip_d'].var()
+                maximo = df_f['ip_d'].max()
+                minimo = df_f['ip_d'].min()
                 st.write(f"**Desvio Padrão:** {desvio:.4f}")
                 st.write(f"**Variância:** {variancia:.4f}")
                 st.write(f"**Coef. de Variação:** {(desvio/media)*100:.2f}%")
+                st.write(f"**Amplitude:** {maximo - minimo:.4f}")
             
             st.markdown("---")
             st.subheader("📋 Tabela de Dados Filtrados (Mão de Obra)")
