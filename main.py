@@ -111,9 +111,9 @@ if df is not None:
         
         # Tabela de Classificação
         dados_variaveis = {
-            "Variável": ["nome_obra", "descricao", "tipo_insumo", "qntd", "ip_d", "data"],
-            "Tipo": ["Qualitativa", "Qualitativa", "Qualitativa", "Quantitativa", "Quantitativa", "Qualitativa"],
-            "Classificação": ["Nominal", "Nominal", "Nominal", "Contínua", "Contínua", "Ordinal"]
+            "Variável": ["nome_obra", "grupo", "descricao", "tipo_insumo", "qntd", "ip_d", "data"],
+            "Tipo": ["Qualitativa", "Qualitativa","Qualitativa", "Qualitativa", "Quantitativa", "Quantitativa", "Qualitativa"],
+            "Classificação": ["Nominal", "Ordinal","Nominal", "Nominal", "Contínua", "Contínua", "Ordinal"]
         }
         st.table(pd.DataFrame(dados_variaveis))
         
@@ -121,7 +121,8 @@ if df is not None:
         st.subheader("💡 Por que cada variável é classificada assim?")
         st.markdown("""
         * **nome_obra, descricao e tipo_insumo (Qualitativas Nominais):** Representam categorias ou nomes. Não existe uma ordem matemática entre 'Obra A' e 'Obra B', nem entre 'Pedreiro' e 'Servente'. São rótulos usados para agrupamento.
-        * **ip_d e qntd (Quantitativas Contínuas):** São valores numéricos que resultam de medições e podem assumir qualquer valor decimal (ex: 0,0202...). A produtividade (IP_D) é contínua pois é uma razão entre tempo e produção.
+        * **ip_d e qntd (Quantitativas Contínuas):** São valores numéricos que resultam de medições e podem assumir qualquer valor decimal (ex.: 0,0202...). A produtividade (IP_D) é contínua pois é uma razão entre tempo e produção.
+        * **grupo (Qualitativa Ordinal):** É possível estabelecer uma hierarquia de cargos em determinadas funções específicas de cada obra (ex.: Pedreiro é o superior de seu Ajudante, assim como General é o superior de seu Soldado).
         * **data (Qualitativa Ordinal):** Embora seja um registro temporal, no contexto de organização da base, as datas estabelecem uma ordem lógica de sucessão (o que aconteceu antes e depois), permitindo analisar a evolução da obra.
         """)
 
