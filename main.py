@@ -15,9 +15,15 @@ def load_data():
         # Limpeza de nomes de colunas
         df.columns = df.columns.str.strip()
         
-        # TRATAMENTO DE DADOS: Conversão do IP_D (trocando vírgula por ponto para o Python entender como número)
+        # TRATAMENTO DE DADOS:
         if 'ip_d' in df.columns:
             df['ip_d'] = pd.to_numeric(df['ip_d'].astype(str).str.replace(',', '.'), errors='coerce')
+        
+        if 'qntd' in df.columns:
+            df['qntd'] = pd.to_numeric(
+                df['qntd'].astype(str).str.replace(',', '.'),
+                errors='coerce'
+            )
         
         # FILTRO OBRIGATÓRIO: Apenas Mão de Obra
         if 'tipo_insumo' in df.columns:
@@ -149,12 +155,37 @@ if df is not None:
 
         st.plotly_chart(fig_box, width='stretch')
 
-        # Gráfico de Barras - Pergunta B
+        # Gráficos de Barras - Pergunta B
         st.subheader("Produtividade Média por Serviço")
-        df_serv = df_f.groupby('descricao')['ip_d'].mean().reset_index().sort_values('ip_d')
-        fig_bar = px.bar(df_serv, x='ip_d', y='descricao', orientation='h', 
+        df_ip = df_f.groupby('descricao')['ip_d'].mean().reset_index().sort_values('ip_d')
+        fig_bar_ip = px.bar(df_ip, x='ip_d', y='descricao', orientation='h', 
                          title="Média de IP_D por Serviço")
-        st.plotly_chart(fig_bar, width='stretch')
+        st.plotly_chart(fig_bar_ip, width='stretch')
+
+        st.subheader("Quantidade por Grupo")
+        df_qntd = df_f.groupby('grupo')['qntd'].sum().reset_index().sort_values('qntd')
+        fig_bar_qntd = px.bar(
+            df_qntd,
+            y='qntd',
+            x='grupo',
+            orientation='v',
+            title="Quantidade Total por Grupo",
+        )
+        fig_bar_qntd.update_layout(
+            yaxis={'categoryorder':'total ascending'}
+        )
+        st.plotly_chart(fig_bar_qntd, width='stretch')
+
+        st.subheader("Insumos por Obra")
+        df_insumo = df_f.groupby(['nome_obra','insumo']).size().reset_index(name='quantidade')
+        fig_bar_insumo = px.bar(
+            df_insumo,
+            x='nome_obra',
+            y='quantidade',
+            color='insumo',
+            title="Distribuição de Insumos por Obra"
+        )
+        st.plotly_chart(fig_bar_insumo, width='stretch')
 
     with tab4:
         st.header("4. Questão Extra - Vídeo")
