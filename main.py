@@ -104,7 +104,7 @@ if df is not None:
             st.markdown("---")
             st.subheader("📋 Tabela de Dados Filtrados (Mão de Obra)")
             # Exibe as principais colunas para conferência do grupo
-            st.dataframe(df_f[['nome_obra', 'descricao', 'insumo', 'qntd', 'ip_d']], width='stretch')
+            st.dataframe(df_f[['nome_obra', 'grupo', 'descricao', 'insumo', 'qntd', 'ip_d']], width='stretch')
 
     with tab2:
         st.header("2. Identificação e Classificação das Variáveis")
