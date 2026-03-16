@@ -104,16 +104,16 @@ if df is not None:
             st.markdown("---")
             st.subheader("📋 Tabela de Dados Filtrados (Mão de Obra)")
             # Exibe as principais colunas para conferência do grupo
-            st.dataframe(df_f[['nome_obra', 'grupo', 'descricao', 'insumo', 'qntd', 'ip_d']], width='stretch')
+            st.dataframe(df_f[["nome_obra", "grupo", "descricao", "tipo_insumo", "qntd", "ip_d", "data", "classe", "caderno", "codigo_cc", "unid", "nova", "codins", "insumo", "unidins", "id_ccoi_elemento", "id_appropriation_composition", "app_inicio", "app_fim", "qs", "qntd_acum", "qs_acum", "ip_acum", "elemento"]], use_container_width=True)
 
     with tab2:
         st.header("2. Identificação e Classificação das Variáveis")
         
         # Tabela de Classificação
         dados_variaveis = {
-            "Variável": ["nome_obra", "grupo", "descricao", "tipo_insumo", "qntd", "ip_d", "data"],
-            "Tipo": ["Qualitativa", "Qualitativa","Qualitativa", "Qualitativa", "Quantitativa", "Quantitativa", "Qualitativa"],
-            "Classificação": ["Nominal", "Ordinal","Nominal", "Nominal", "Contínua", "Contínua", "Ordinal"]
+            "Variavel" :["nome_obra", "grupo", "descricao", "tipo_insumo", "qntd", "ip_d", "data", "classe", "caderno", "codigo_cc", "unid", "nova", "codins", "insumo", "unidins", "id_ccoi_elemento", "id_appropriation_composition", "app_inicio", "app_fim", "qs", "qntd_acum", "qs_acum", "ip_acum", "elemento"],
+            "Tipo": ["Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Quantitativa", "Quantitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Qualitativa", "Quantitativa", "Quantitativa", "Quantitativa", "Quantitativa", "Quantitativa"],
+            "Classificação": ["Nominal", "Nominal", "Nominal", "Nominal", "Contínua", "Contínua", "Ordinal", "Nominal", "Nominal", "Ordinal", "Nominal", "Nominal", "Nominal", "Nominal", "Nominal", "Nominal", "Nominal", "Ordinal", "Ordinal", "Contínua", "Contínua", "Contínua", "Contínua", "Discreta"],
         }
         st.table(pd.DataFrame(dados_variaveis))
         
